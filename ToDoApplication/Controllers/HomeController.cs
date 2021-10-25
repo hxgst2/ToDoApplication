@@ -68,7 +68,7 @@ namespace ToDoApplication.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{nameof(HomeController)}.{nameof(Create)}", ex);
+                _logger.LogError($"{nameof(HomeController)}.{nameof(Update)}", ex);
                 // redirect to Error View/Method etc
                 return RedirectToAction(nameof(Index));
 
@@ -86,7 +86,7 @@ namespace ToDoApplication.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{nameof(HomeController)}.{nameof(Create)}", ex);
+                _logger.LogError($"{nameof(HomeController)}.{nameof(Delete)}", ex);
                 // redirect to Error View/Method etc
                 return RedirectToAction(nameof(Index));
 
