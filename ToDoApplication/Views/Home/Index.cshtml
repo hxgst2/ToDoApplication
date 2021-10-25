@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<ToDoItem>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <a href="/home/create" class="btn btn-primary text-left">Create</a>
+    @{ int counter = 1;}
+    @foreach (var item in Model?.ToList())
+    {
+        <div class="row mb-1">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title font-weight-bold text-left">
+                            <span>Item# <i>@counter</i></span>
+                            <span>@item.Title</span>
+                        </div>
+                        <p class="card-text text-left">@item.Description</p>
+                        <div class="card-footer text-right">
+                            <a href="/home/update/@item.Id" class="btn btn-primary">Edit</a>
+                            <button type="submit" class="btn btn-danger btn-delete" data-id="@item.Id" id="delete_@item.Id">Delete</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @( counter++)
+    }
+    @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { name = "formDelete", id = "formDelete" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("Id")
+    }
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $('.btn-delete').click(function () {
+            var Id = $(this).attr('data-id');
+            var formDelete = $('#formDelete');
+            $('#Id').val(Id);
+            formDelete.submit();
+        })
+    </script>
+}
